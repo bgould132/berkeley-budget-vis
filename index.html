@@ -76,7 +76,7 @@
                 var path = sankey.link();
 
                 // load the data (using the timelyportfolio csv method)
-                d3.csv("fy2016budget.csv", function(error, data) {
+                d3.csv("http://bgould132.github.io/Berkeley-budget-vis/fy2016budget.csv", function(error, data) {
 
                   //set up graph in same style as original example but empty
                   graph = {"nodes" : [], "links" : []};
@@ -112,13 +112,34 @@
                     .layout(32);
 
                 // add in the links
-                  var link = svg.append("g").selectAll(".link")
+                  var link = svg.append("g")
+                    .selectAll(".link")
                       .data(graph.links)
                     .enter().append("path")
                       .attr("class", "link")
                       .attr("d", path)
                       .style("stroke-width", function(d) { return Math.max(1, d.dy); })
-                      .sort(function(a, b) { return b.dy - a.dy; });
+                      .sort(function(a, b) { return b.dy - a.dy; })
+                    .on("mouseover", function(d){
+                        d3.select(this).classed("highlight", true);
+                        d3.select("#hover_description")
+                            .classed("show", true)
+                            .text(d.source.name + " → " + d.target.name + ": " + format(d.value));
+                      })
+                    .on("mousemove", function(d){
+                      d3.select("#hover_description")
+                        .style({
+                                "top": (d3.event.y - 10 + $(window).scrollTop()) + "px",
+                                "left": (d3.event.x + 10) + "px"
+                                });
+                      })
+                    .on("mouseout", function(){
+                        d3.select(this).classed("highlight", function(){
+                            return d3.select(this).classed('click');
+                        })
+                            d3.select("#hover_description")
+                                .classed("show", false);
+                          });
 
                 // add the link titles
                   link.append("title")
@@ -161,9 +182,61 @@
                           //return d.color = color(d.name.replace(/ .*/, "")); }
                       .style("stroke", function(d) { 
                           return d3.rgb(d.color).darker(1); })
-                    .append("title")
-                      .text(function(d) { 
-                          return d.name + "\n" + format(d.value); });
+                    
+                  
+                  // new code from open oak
+                  .on("mouseover", function(d){
+                      var thisnode = d3.select(this.parentNode);
+
+                    //   highlight node only, not flows
+                      thisnode.classed("hover", true);
+
+                    //   append total amount to label
+                      thisnode.select("text").transition()
+                        .text(function(d){
+                            var text = d.name;
+                            text += ': ' + format(d.value);
+                            return text;
+                        });
+                  })
+                  .on("mouseout", function(d){
+                      var thisnode = d3.select(this.parentNode);
+                    //   remove node highlight
+                      thisnode.classed("hover", false);
+                    //   remove amount from label
+                    if (!thisnode.classed('highlight')) {
+                        thisnode.select("text").transition()
+                          .text(function(d){ return d.name; });
+                    }
+
+                  })
+                  .on("click", function(d){
+                      var thisnode = d3.select(this.parentNode);
+                      if (thisnode.classed("highlight")) {
+                          thisnode.classed("highlight", false);
+                          thisnode.classed("hover", false);
+                      } else {
+                        //   node.classed("highlight", false);
+                          thisnode.classed("highlight", true);
+                      }
+
+                      link.classed('highlight click', function(link_d){
+                          if ([link_d.target.name, link_d.source.name].indexOf(d.name) >= 0) {
+                              return thisnode.classed("highlight");
+                          } else {
+                              return d3.select(this).classed("click");
+                          };
+                      });
+
+                      thisnode.select("text").transition()
+                        .text(function(d){
+                            var text = d.name;
+                            if (thisnode.classed('highlight')) {
+                                text += ': ' + format(d.value);
+                            }
+                            return text;
+                        });
+                  });
 
                 // add in the title for the nodes
                   node.append("text")
