@@ -36,7 +36,7 @@ var sankey = d3.sankey()
 var path = sankey.link();
 
 // load the data (using the timelyportfolio csv method)
-d3.csv("http://bgould132.github.io/berkeley-budget-vis/Budget Data/fy2016budget.csv", function(error, data) {
+d3.csv("http://bgould132.github.io/berkeley-budget-vis/Budget data/fy2016budget.csv", function(error, data) {
 
   //set up graph in same style as original example but empty
   graph = {"nodes" : [], "links" : []};
