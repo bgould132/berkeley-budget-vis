@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <style>
+        svg text {
+            font-family: Times, Helvetica, sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+        }
+        .node rect {
+          cursor: move;
+          fill-opacity: .9;
+          shape-rendering: crispEdges;
+        }
+        .node text {
+          pointer-events: none;
+          /*text-shadow: 0 1px 0 #fff;*/
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 13px;
+          font-weight: 200;
+        }
+        .link {
+          fill: none;
+          stroke: #000;
+          stroke-opacity: .3;
+        }
+        .link.text {
+            visibility:hidden;
+        }
+        .link:hover {
+          stroke-opacity: .75;
+        }
+        #hover_description {
+            position:absolute;
+            opacity:0;
+            padding:8px;
+            background-color:#dfdfdf;
+            visibility:hidden;
+            /*-webkit-transition:visibility 0s 0.1s,opacity 0.1s;*/
+            transition:visibility 0s 0.1s,opacity 0.1s;
+            font-size:14px;
+        }
+        #hover_description.show {
+            visibility:visible;
+            opacity:0.85;
+            /*-webkit-transition-delay:0s;*/
+            transition-delay:0s;
+        }
+        .node.highlight text, .node.hover text {
+            font-size:15px;
+        }
+        .node.highlight rect, .node.hover rect {
+            stroke-width:2px;
+        }
+        .footer-text {
+            font-size: 14px;
+        }
+    </style>
+    <head>
+        <meta charset="UTF-8">
+        <title>Berkeley budget vis by bgould132</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
+        
+    </head>
+  <body>
+    <section class="main-content">
+        <div id="chart">
+            <h2>City of Berkeley's FY 2016 Proposed Budget</h2>
+            <p>This diagram depicts the flow of money through the City of Berkeley: from sources of revenue (left) through funds (General and Restricted) into departmental expenses (right)</p>
+            <p>Mouse over the chart to see specific dollar amounts!</p>
+            <!--<select id="fy"></select>-->
+            <div id="hover_description"></div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+            <script src="sankey.js"></script>
+            <script src="budgetvis.js"></script>
+            <script type="text/javascript">
+                vis("fy2016");
+                //var news = function news() {console.log(fy.value);};
+                /*for (var i = 2013; i < 2018; i++) {
+                    d3.select("#fy").append("option").attr("value", function() {return ("fy" + i);}).text(function() {return ("FY " + i)});
+                }
+                $("#fy").change(news);
+                $("#fy").change(function () {vis(fy.value);
+                                            console.log(fy.value);});*/
+                //d3.select("#fy").on("change", vis(fy.value));
+                //d3.select("#fy").on("change", news);
+            </script>
+            
+            <section class="footer-text">
+                <br>
+                <p>For more information, visit the <a href="http://www.ci.berkeley.ca.us/budget/">City of Berkeley's Budget Office</a>, or <a href="https://github.com/bgould132/berkeley-budget-vis/zipball/master">download the budget data</a> for yourself.</p>
+                <p>Created by <a href="http://bgould132.github.io">Ben Gould</a>. Inspired by <a href="http://openbudgetoakland.org">Open Budget Oakland</a>.</p>
+                <br>
+            </section>
+        
+        <!-- Google Analytics code -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-68947815-2', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>
