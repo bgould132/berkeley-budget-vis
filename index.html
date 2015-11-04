@@ -89,8 +89,9 @@
             <script src="sankey.js"></script>
             <script src="budgetvis.js"></script>
             <script type="text/javascript">
+                var w = $("#chart").width();
                 d3.csv("https://bgould132.github.io/berkeley-budget-vis/Budget data/fy2013budget.csv", function(error, data) {
-                        vis(data);
+                        vis(data, w, 630);
                     });
                 for (var i = 2013; i < 2018; i++) {
                     d3.select("#fy").append("option").attr("value", function() {return ("fy" + i);}).text(function() {return ("FY " + i)});
@@ -98,7 +99,7 @@
                 $("#fy").change(function () {
                     d3.csv("https://bgould132.github.io/berkeley-budget-vis/Budget data/" + fy.value + "budget.csv", function(error, data) {
                         d3.select(".sankeyChart").remove();
-                        vis(data);
+                        vis(data, w, 630);
                     });
                 
                 });

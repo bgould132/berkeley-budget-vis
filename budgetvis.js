@@ -1,9 +1,9 @@
-function vis (data) {
+function vis (data, w, h) {
     var units = "$";
 
     var margin = {top: 20, right: 10, bottom: 10, left: 10},
-        width = 1000 - margin.left - margin.right,
-        height = 630 - margin.top - margin.bottom;
+        width = w - margin.left - margin.right,
+        height = h - margin.top - margin.bottom;
 
     var formatNumber = d3.format(",.0f"),    // zero decimal places
         format = function(d) { return units + formatNumber(d); },
