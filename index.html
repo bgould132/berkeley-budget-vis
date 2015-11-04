@@ -81,7 +81,7 @@
         <div id="chart">
             <h2>City of Berkeley's Annual Budget</h2>
             <p>This diagram depicts the flow of money through the City of Berkeley: from sources of revenue (left) through funds (General and Restricted) into departmental expenses (right).</p>
-                <p>You can select a fiscal year (2013 through 2017) using the drop-down menu below. (FY 2013 and 2014 are real revenues & expenditures, FY 2015 is approved budget, and FY 2016 and 2017 are proposed budgets).</p>
+            <p>You can select a fiscal year (2013 through 2017) using the drop-down menu below. (FY 2013 and 2014 are real revenues & expenditures, FY 2015 is approved budget, and FY 2016 and 2017 are proposed budgets).</p>
             <p>Mouse over the chart to see specific dollar amounts!</p>
             <p><select id="fy"></select></p>
             <div id="hover_description"></div>
@@ -92,11 +92,9 @@
                 d3.csv("https://bgould132.github.io/berkeley-budget-vis/Budget data/fy2013budget.csv", function(error, data) {
                         vis(data);
                     });
-                var news = function news() {console.log(fy.value);};
                 for (var i = 2013; i < 2018; i++) {
                     d3.select("#fy").append("option").attr("value", function() {return ("fy" + i);}).text(function() {return ("FY " + i)});
                 }
-                $("#fy").change(news);
                 $("#fy").change(function () {
                     d3.csv("https://bgould132.github.io/berkeley-budget-vis/Budget data/" + fy.value + "budget.csv", function(error, data) {
                         d3.select(".sankeyChart").remove();
@@ -104,8 +102,6 @@
                     });
                 
                 });
-                //d3.select("#fy").on("change", vis(fy.value));
-                //d3.select("#fy").on("change", news);
             </script>
         </div>
             
