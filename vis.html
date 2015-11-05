@@ -54,8 +54,14 @@
         .footer-text {
             font-size: 14px;
         }
-        p {
+        #chart p, .footer-text p {
             font-size: 12px;
+            margin-bottom: 4px;
+            margin-top: 4px;
+        }
+        #chart h2 {
+            font-size: 16px;
+            margin-bottom: 8px;
         }
         
     </style>
@@ -68,12 +74,11 @@
         <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
         <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
         <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
-        
     </head>
   <body>
     <section class="main-content">
         <div id="chart">
-            <h2 style="font-size:16px">City of Berkeley Annual Budget:</h2>
+            <h2>City of Berkeley Annual Budget:</h2>
             <p>View the City of Berkeley's flow of money from revenue sources, through categories of funding and into departmental expenses.</p>
             <p>Select a specific fiscal year using the drop-down menu. FY 2013 and 2014 are actual revenues & expenditures, FY 2015 is approved budget, and FY 2016 and 2017 are proposed budgets.</p>
             <p>Mouse over the chart to see specific dollar amounts!</p>
@@ -103,7 +108,6 @@
             <section class="footer-text">
                 <p>For more information, visit the <a href="http://www.ci.berkeley.ca.us/budget/">City of Berkeley's Budget Office</a>, or <a href="https://github.com/bgould132/berkeley-budget-vis/zipball/master">download the budget data and source code</a> for yourself. Visit the standalone page at <a href="http://bgould132.github.io/berkeley-budget-vis">http://bgould132.github.io/berkeley-budget-vis</a>.</p>
                 <p>Created by <a href="http://bgould132.github.io">Ben Gould</a>. Inspired by <a href="http://openbudgetoakland.org">Open Budget Oakland</a>.</p>
-                <br>
             </section>
         
         <!-- Google Analytics code -->
